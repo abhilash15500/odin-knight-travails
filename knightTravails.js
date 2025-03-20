@@ -1,4 +1,4 @@
-const parentDataArrayOfObjects = [];
+let parentDataArrayOfObjects = [];
 
 function knightMoves(startVertex, endVertex) {
   if (
@@ -42,7 +42,9 @@ function knightMoves(startVertex, endVertex) {
           formattedString = formattedString + ` [${move}]`;
         });
 
-        return `=> You made it in ${backtrackedPath.length - 1} moves! Your path is :${formattedString}`;
+        return `=> You made it in ${
+          backtrackedPath.length - 1
+        } moves! Your path is :${formattedString}`;
       }
     }
   }
@@ -114,4 +116,4 @@ function getValidMoves(currentPosition) {
 }
 
 // Example usage:
-console.log(knightMoves([0, 0], [3,3]));
+console.log(knightMoves([0, 0], [7, 7]));
