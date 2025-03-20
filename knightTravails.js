@@ -1,6 +1,7 @@
 let parentDataArrayOfObjects = [];
 
 function knightMoves(startVertex, endVertex) {
+  parentDataArrayOfObjects = [];
   if (
     startVertex[0] < 0 ||
     startVertex[0] > 7 ||
@@ -20,7 +21,7 @@ function knightMoves(startVertex, endVertex) {
   parentDataArrayOfObjects.push(newParentDataObject);
 
   if (startVertex[0] === endVertex[0] && startVertex[1] === endVertex[1]) {
-    return `=> You made it in 0 moves!  Here's your path:{${endVertex}}`;
+    return `=> You made it in 0 moves!  Here's your path: [${endVertex}]`;
   }
 
   while (queue.length !== 0) {
@@ -115,5 +116,28 @@ function getValidMoves(currentPosition) {
   return arrayOfValidMoves;
 }
 
-// Example usage:
+// Tests
+
 console.log(knightMoves([0, 0], [7, 7]));
+// Expected Output: "=> You made it in 6 moves! Your path is: [0,0] [2,1] [4,2] [6,3] [4,4] [6,5] [7,7]"
+
+console.log(knightMoves([7, 7], [0, 0]));
+// Expected Output: "=> You made it in 6 moves! Your path is: [7,7] [5,6] [3,5] [1,4] [3,3] [1,2] [0,0]"
+
+console.log(knightMoves([0, 0], [1, 2]));
+// Expected Output: "=> You made it in 1 move! Your path is: [0,0] [1,2]"
+
+console.log(knightMoves([3, 3], [4, 3]));
+// Expected Output: "=> You made it in 3 moves! Your path is: [3,3] [5,4] [3,5] [4,3]"
+
+console.log(knightMoves([0, 0], [2, 2]));
+// Expected Output: "=> You made it in 2 moves! Your path is: [0,0] [1,2] [2,2]"
+
+console.log(knightMoves([4, 4], [0, 7]));
+// Expected Output: "=> You made it in 4 moves! Your path is: [4,4] [6,5] [4,6] [2,7] [0,7]"
+
+console.log(knightMoves([0, 7], [7, 0]));
+// Expected Output: "=> You made it in 6 moves! Your path is: [0,7] [2,6] [4,5] [6,4] [4,3] [6,2] [7,0]"
+
+console.log(knightMoves([3, 3], [3, 3]));
+// Expected Output: "=> You made it in 0 moves! Your path is: [3,3]"
