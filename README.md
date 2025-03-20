@@ -1,10 +1,11 @@
 # ♞ Odin Knight Travails  
 
-A project to find the shortest path for a **knight** on a chessboard using **Breadth-First Search (BFS).**  
+A project to find the shortest path for a **knight** on a chessboard using **Breadth-First Search (BFS)** and **Graph Representation**.  
 
-##  What I Learned  
+## What I Learned  
 - How to **dynamically calculate valid knight moves**  
 - Using **BFS** to find the shortest path  
+- Representing the chessboard as a **graph** for efficient traversal  
 
 ## How to Use  
 ```js
