@@ -1,4 +1,4 @@
-//knight function
+const parentDataArrayOfObjects = [];
 
 function knightMoves(startVertex, endVertex) {
   if (
@@ -16,6 +16,9 @@ function knightMoves(startVertex, endVertex) {
 
   let queue = [startVertex];
 
+  let newParentDataObject = new ParentDataObject(null, startVertex);
+  parentDataArrayOfObjects.push(newParentDataObject);
+
   if (startVertex[0] === endVertex[0] && startVertex[1] === endVertex[1]) {
     return `=> You made it in 0 moves!  Here's your path:{${endVertex}}`;
   }
@@ -26,18 +29,57 @@ function knightMoves(startVertex, endVertex) {
 
     validMoves.forEach((move) => {
       queue.push(move);
+      newParentDataObject = new ParentDataObject(firstVertex, move);
+      parentDataArrayOfObjects.push(newParentDataObject);
     });
 
     for (const move of validMoves) {
       if (move[0] === endVertex[0] && move[1] === endVertex[1]) {
-        return "element found yay";
+        let backtrackedPath = backTrackThePath(move);
+
+        let formattedString = ``;
+        backtrackedPath.forEach((move) => {
+          formattedString = formattedString + ` [${move}]`;
+        });
+
+        return `=> You made it in ${backtrackedPath.length - 1} moves! Your path is :${formattedString}`;
       }
     }
   }
 }
 
-
 //utility functions
+function getParentVertex(currentVertex) {
+  for (objects of parentDataArrayOfObjects) {
+    if (
+      objects.data[0] === currentVertex[0] &&
+      objects.data[1] === currentVertex[1]
+    ) {
+      return objects.parent;
+    }
+  }
+}
+
+function backTrackThePath(currentVertex, path = []) {
+  if (getParentVertex(currentVertex) === null) {
+    path.push(currentVertex);
+    path.reverse();
+    return;
+  } else {
+    path.push(currentVertex);
+    currentVertex = getParentVertex(currentVertex);
+    backTrackThePath(currentVertex, path);
+  }
+
+  return path;
+}
+
+class ParentDataObject {
+  constructor(parent, data) {
+    this.parent = parent;
+    this.data = data;
+  }
+}
 
 function getValidMoves(currentPosition) {
   let x = currentPosition[0];
@@ -72,4 +114,4 @@ function getValidMoves(currentPosition) {
 }
 
 // Example usage:
-console.log(knightMoves([0, 0], [3, 3]));
+console.log(knightMoves([0, 0], [3,3]));
