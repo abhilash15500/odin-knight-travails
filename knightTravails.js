@@ -1,31 +1,45 @@
-// a function knightMoves that can generate the shortest path of a knight from one spot to other
+//knight function
 
-function knightMoves(startPosition, endPosition) {
-  // here i have declared a valid path variable that will store all the valid path to reach destination and i will return it later to find shortest array of valid path to decide which is shortest path after traversal
-  let validPaths = [];
+function knightMoves(startVertex, endVertex) {
+  if (
+    startVertex[0] < 0 ||
+    startVertex[0] > 7 ||
+    startVertex[1] < 0 ||
+    startVertex[1] > 7 ||
+    endVertex[0] < 0 ||
+    endVertex[0] > 7 ||
+    endVertex[1] < 0 ||
+    endVertex[1] > 7
+  ) {
+    return "=> Element not found";
+  }
 
-  //declared a queue to track the vertices 
-  let queue = [];
+  let queue = [startVertex];
 
-  // a discovered vertex variable array to check what visited
-  let discoveredVertex = [];
+  if (startVertex[0] === endVertex[0] && startVertex[1] === endVertex[1]) {
+    return `=> You made it in 0 moves!  Here's your path:{${endVertex}}`;
+  }
 
-  //current path array to return the current path if target is found inside the valid paths 
-  let currentPath = [];
+  while (queue.length !== 0) {
+    let firstVertex = queue.shift();
+    let validMoves = getValidMoves(firstVertex);
 
-  queue.push(startPosition);  // start with first vertex starting posi
-  discoveredVertex.push(startPosition);  // put the discovered vertex in the variable 
-  currentPath = [startPosition]; // add start position to current path and later add more using iteration
+    validMoves.forEach((move) => {
+      queue.push(move);
+    });
 
-  // iteration to do bfs on the graph so that all the paths can be checked
-  while (queue.length !== 0) {  // queue is empty means we visited all vertices so its over
-        
-    let validMovesArray = generateValidMoves(startPosition);
-
+    for (const move of validMoves) {
+      if (move[0] === endVertex[0] && move[1] === endVertex[1]) {
+        return "element found yay";
+      }
+    }
   }
 }
 
-function generateValidMoves(currentPosition) {
+
+//utility functions
+
+function getValidMoves(currentPosition) {
   let x = currentPosition[0];
   let y = currentPosition[1];
   const arrayOfValidMoves = [];
@@ -56,3 +70,6 @@ function generateValidMoves(currentPosition) {
   }
   return arrayOfValidMoves;
 }
+
+// Example usage:
+console.log(knightMoves([0, 0], [3, 3]));
